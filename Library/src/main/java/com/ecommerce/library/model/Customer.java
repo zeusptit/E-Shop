@@ -3,6 +3,7 @@ package com.ecommerce.library.model;
 import  jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -24,9 +25,11 @@ public class Customer {
     private String country;
     private String phoneNumber;
     private String address;
+
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "name", referencedColumnName = "id")
     private City city;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "customer_role", joinColumns = @JoinColumn(name = "customer_id", referencedColumnName = "customer_id"),
                 inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "role_id"))
@@ -38,7 +41,10 @@ public class Customer {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Order> orders;
 
-    private Customer(){
+    public Customer(){
+
         this.country = "VN";
+        this.cart = new ShoppingCart();
+        this.orders = new ArrayList<>();
     }
 }

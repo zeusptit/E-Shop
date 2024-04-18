@@ -64,6 +64,11 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
+    public List<ProductDto> products() {
+        return transferData(productRepository.getAllProduct());
+    }
+
+    @Override
     public Product save(MultipartFile imageProduct, ProductDto productDto) {
         Product product = new Product();
         try{
@@ -100,7 +105,7 @@ public class ProductServiceImpl implements ProductService{
                 }
             }
             productUpdate.setCategory(productDto.getCategory());
-            productUpdate.setId(productUpdate.getId());
+            //productUpdate.setId(productUpdate.getId());
             productUpdate.setName(productDto.getName());
             productUpdate.setDescription(productDto.getDescription());
             productUpdate.setCostPrice(productDto.getCostPrice());

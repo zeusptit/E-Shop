@@ -20,6 +20,19 @@ public interface ProductService {
     Page<ProductDto> getAllProducts(int pageNo);
 
     Page<ProductDto> searchProducts(int pageNo, String keyword);
+    List<ProductDto> searchProductList(String keyword);
 
     List<ProductDto> products();
+
+    List<ProductDto> randomProduct();
+
+    List<ProductDto> listViewProducts();
+
+    List<ProductDto> findAllByCategory(String category);
+
+    List<ProductDto> filterHighProducts();
+
+    List<ProductDto> filterLowProducts();
+
+    List<ProductDto> findByCategoryId(Long id);
 }

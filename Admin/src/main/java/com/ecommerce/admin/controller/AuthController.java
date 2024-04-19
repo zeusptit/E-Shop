@@ -21,8 +21,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AuthController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Autowired
     private AdminServiceImpl adminService;
+
     @GetMapping("/login")
     public String login(Model model){
         model.addAttribute("title", "Login Page");

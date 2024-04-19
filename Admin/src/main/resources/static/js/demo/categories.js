@@ -7,5 +7,6 @@ $('document').ready(function() {
             $('#nameEdit').val(category.name);
         });
         $('#editModal').modal();
+        $('#name').focus();
     });
 });

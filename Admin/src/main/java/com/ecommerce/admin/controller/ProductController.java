@@ -106,7 +106,7 @@ public class ProductController {
         ProductDto productDto = productService.getById(id);
         model.addAttribute("title", "Add Product");
         model.addAttribute("categories", categories);
-        model.addAttribute("productDto", new ProductDto());
+        model.addAttribute("productDto", productDto);
         return "update-product";
     }
 

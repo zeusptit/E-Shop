@@ -101,7 +101,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
         item.setQuantity(itemQuantity);
         itemRepository.save(item);
-        shoppingCart.setCartItems(cartItemList);
+        shoppingCart.setCartItems((HashSet<CartItem>) cartItemList);
         int totalItem = totalItem(cartItemList);
         double totalPrice = totalPrice(cartItemList);
         shoppingCart.setTotalPrice(totalPrice);

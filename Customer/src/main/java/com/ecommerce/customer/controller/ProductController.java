@@ -88,24 +88,23 @@ public class ProductController {
 
     @GetMapping("/find-products/{id}")
     public String productsInCategory(@PathVariable("id") Long id, Model model) {
-        List<CategoryDto> categories = categoryService.getCategoriesAndSize();
-        for(CategoryDto x : categories){
-            System.out.println(x);
-        }
-        List<ProductDto> products = productService.findByCategoryId(id);
+        List<CategoryDto> categoryDtos = categoryService.getCategoriesAndSize();
+        List<ProductDto> productDtos = productService.findByCategoryId(id);
         List<ProductDto> listView = productService.listViewProducts();
         model.addAttribute("productViews", listView);
-        model.addAttribute("categories", categories);
-        model.addAttribute("title", products.get(0).getCategory().getName());
+        model.addAttribute("categories", categoryDtos);
+        model.addAttribute("title", productDtos.get(0).getCategory().getName());
         model.addAttribute("page", "Product-Category");
-        model.addAttribute("products", products);
-
+        model.addAttribute("products", productDtos);
         return "products";
     }
 
     @GetMapping("/search-product")
     public String searchProduct(@RequestParam("keyword") String keyword, Model model){
         List<CategoryDto> categories = categoryService.getCategoriesAndSize();
+        for(CategoryDto x : categories){
+            System.out.println(x);
+        }
         model.addAttribute("categories", categories);
         List<ProductDto> products = productService.searchProductList(keyword);
         List<ProductDto> listView = productService.listViewProducts();

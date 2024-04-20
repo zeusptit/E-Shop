@@ -1,7 +1,10 @@
 package com.ecommerce.library.model;
 
-import  jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,9 +12,9 @@ import java.util.List;
 
 @Getter
 @Setter
-@Data
-@Entity
+@EqualsAndHashCode
 @AllArgsConstructor
+@Entity
 @Table(name = "customers", uniqueConstraints = @UniqueConstraint(columnNames = "username"))
 public class Customer {
     @Id
@@ -22,17 +25,16 @@ public class Customer {
     private String lastName;
     private String username;
     private String password;
-    private String country;
     private String phoneNumber;
     private String address;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "name", referencedColumnName = "id")
     private City city;
-
+    private String country;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "customer_role", joinColumns = @JoinColumn(name = "customer_id", referencedColumnName = "customer_id"),
-                inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "role_id"))
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "role_id"))
     private Collection<Role> roles;
 
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
@@ -41,10 +43,27 @@ public class Customer {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Order> orders;
 
-    public Customer(){
-
+    public Customer() {
         this.country = "VN";
         this.cart = new ShoppingCart();
         this.orders = new ArrayList<>();
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", address='" + address + '\'' +
+                ", city=" + city.getName() +
+                ", country='" + country + '\'' +
+                ", roles=" + roles +
+                ", cart=" + cart.getId() +
+                ", orders=" + orders.size() +
+                '}';
     }
 }

@@ -35,17 +35,15 @@ public class ShoppingCartController {
         ShoppingCart cart = customer.getCart();
         if (cart == null) {
             model.addAttribute("check");
-
         }
         if (cart != null) {
             model.addAttribute("grandTotal", cart.getTotalPrice());
         }
         model.addAttribute("shoppingCart", cart);
         model.addAttribute("title", "Cart");
+        model.addAttribute("page", "Cart");
         session.setAttribute("totalItems", cart.getTotalItems());
         return "cart";
-
-
     }
 
     @PostMapping("/add-to-cart")
@@ -55,7 +53,6 @@ public class ShoppingCartController {
                                 Model model,
                                 Principal principal,
                                 HttpSession session) {
-
 
         ProductDto productDto = productService.getById(id);
         if (principal == null) {

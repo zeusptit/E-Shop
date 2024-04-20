@@ -19,14 +19,14 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @GetMapping("/orders")
+    @GetMapping("/order")
     public String getAll(Model model, Principal principal){
         if(principal == null){
             return "redirect:/login";
         }
         List<Order> orderList = orderService.findAllOrders();
-        model.addAttribute("orders", orderList);
-        return "orders";
+        model.addAttribute("order", orderList);
+        return "order";
     }
 
     @RequestMapping(value = "/accept-order", method = {RequestMethod.GET, RequestMethod.PUT})
@@ -36,7 +36,7 @@ public class OrderController {
         }
         orderService.acceptOrder(id);
         redirectAttributes.addFlashAttribute("success", "Order Accepted");
-        return "redirect:/orders";
+        return "redirect:/order";
     }
 
     @RequestMapping(value = "/cancel-order", method = {RequestMethod.GET, RequestMethod.PUT})
@@ -46,6 +46,6 @@ public class OrderController {
         }
         orderService.cancelOrder(id);
         redirectAttributes.addFlashAttribute("success", "Order canceled");
-        return "redirect:/orders";
+        return "redirect:/order";
     }
 }

@@ -64,8 +64,43 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
+    public List<ProductDto> searchProductList(String keyword){
+        return transferData(productRepository.searchProducts(keyword));
+    }
+
+    @Override
     public List<ProductDto> products() {
         return transferData(productRepository.getAllProduct());
+    }
+
+    @Override
+    public List<ProductDto> randomProduct() {
+        return transferData(productRepository.randomProduct());
+    }
+
+    @Override
+    public List<ProductDto> listViewProducts() {
+        return transferData(productRepository.listViewProduct());
+    }
+
+    @Override
+    public List<ProductDto> findAllByCategory(String category) {
+        return transferData(productRepository.findAllByCategory(category));
+    }
+
+    @Override
+    public List<ProductDto> filterHighProducts() {
+        return transferData(productRepository.filterHighProducts());
+    }
+
+    @Override
+    public List<ProductDto> filterLowProducts() {
+        return transferData(productRepository.filterLowerProducts());
+    }
+
+    @Override
+    public List<ProductDto> findByCategoryId(Long id) {
+        return transferData(productRepository.getProductByCategoryId(id));
     }
 
     @Override
@@ -105,7 +140,7 @@ public class ProductServiceImpl implements ProductService{
                 }
             }
             productUpdate.setCategory(productDto.getCategory());
-            //productUpdate.setId(productUpdate.getId());
+            productUpdate.setId(productUpdate.getId());
             productUpdate.setName(productDto.getName());
             productUpdate.setDescription(productDto.getDescription());
             productUpdate.setCostPrice(productDto.getCostPrice());

@@ -1,4 +1,4 @@
-- Seafood Restaurant Web Application
+# Seafood Restaurant Web Application
 
 ## Technologies: Springboot, Spring Security, MySQL, Thymeleaf,...
 ## Features:

@@ -74,7 +74,7 @@
                                 <span></span>[(${order.paymentMethod})]</span>
                             </td>
                             <td>
-                                <a th:href="@{/cancel-order/(id = ${order.id})}" class="button-cancel">Cancel</a>
+                                <a th:href="@{/cancel-order/{id}(id = ${order.id})}" class="button-cancel">Cancel</a>
                             </td>
                             </a>
                             </td>

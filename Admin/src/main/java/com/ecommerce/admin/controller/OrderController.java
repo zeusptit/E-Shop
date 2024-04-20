@@ -25,7 +25,7 @@ public class OrderController {
             return "redirect:/login";
         }
         List<Order> orderList = orderService.findAllOrders();
-        model.addAttribute("order", orderList);
+        model.addAttribute("orders", orderList);
         return "orders";
     }
 
@@ -49,13 +49,5 @@ public class OrderController {
         return "redirect:/orders";
     }
 
-    @GetMapping("/check-out")
-    public String checkoutPage(Model model, Principal principal){
-        if(principal == null){
-            return "redirect:/login";
-        }
-        model.addAttribute("title", "Checkout");
-        model.addAttribute("page", "Checkout");
-        return "checkout";
-    }
+
 }

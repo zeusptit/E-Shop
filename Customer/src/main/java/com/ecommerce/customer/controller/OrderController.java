@@ -7,9 +7,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
@@ -38,7 +36,7 @@ public class OrderController {
             return "redirect:/login";
         } else {
             CustomerDto customer = customerService.getCustomer(principal.getName());
-            if (customer.getAddress() == null || customer.getCity() == null || customer.getPhoneNumber() == null) {
+            if (customer.getAddress() == null || customer.getPhoneNumber() == null) {
                 model.addAttribute("information", "You need update your information before check out");
                 List<Country> countryList = countryService.findAll();
                 List<City> cities = cityService.findAll();
@@ -60,7 +58,7 @@ public class OrderController {
         }
     }
 
-    @GetMapping("/orders")
+    @GetMapping("/order")
     public String getOrders(Model model, Principal principal) {
         if (principal == null) {
             return "redirect:/login";
@@ -74,11 +72,11 @@ public class OrderController {
         }
     }
 
-    @RequestMapping(value = "/cancel-order", method = {RequestMethod.PUT, RequestMethod.GET})
-    public String cancelOrder(Long id, RedirectAttributes attributes) {
+    @GetMapping("/cancel-order/{id}")
+    public String cancelOrder(@PathVariable("id") Long id, RedirectAttributes attributes) {
         orderService.cancelOrder(id);
         attributes.addFlashAttribute("success", "Cancel order successfully!");
-        return "redirect:/orders";
+        return "redirect:/order";
     }
 
 
